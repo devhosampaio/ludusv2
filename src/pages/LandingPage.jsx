@@ -162,7 +162,7 @@ function LandingPage() {
 
       <section className="lp-section lp-container" id="listas" data-ui-id="LP-040">
         <div className="lp-section-heading">
-          <div><span className="lp-eyebrow">03 / coleções pessoais</span><h2>jogos em <em>conjunto</em></h2></div>
+          <div><span className="lp-eyebrow">02 / coleções pessoais</span><h2>jogos em <em>conjunto</em></h2></div>
           <span className="lp-section-heading__aside">LISTAS FEITAS POR JOGADORES</span>
         </div>
         <div className="lp-list-grid">
@@ -181,7 +181,7 @@ function LandingPage() {
       <section className="lp-section lp-features-section" id="funcionalidades" data-ui-id="LP-050">
         <div className="lp-container">
           <div className="lp-section-heading">
-            <div><span className="lp-eyebrow">04 / seu espaço de jogo</span><h2>mais maneiras de <em>viver jogos</em></h2></div>
+            <div><span className="lp-eyebrow">03 / seu espaço de jogo</span><h2>mais maneiras de <em>viver jogos</em></h2></div>
           </div>
           <div className="lp-feature-grid">
             {features.map((feature) => <article className="lp-feature" key={feature.id} data-ui-id={feature.id}><span className="lp-feature__symbol">{feature.symbol}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}
@@ -191,7 +191,7 @@ function LandingPage() {
 
       <section className="lp-about lp-container" id="sobre" data-ui-id="LP-055">
         <div className="lp-about__symbol" aria-hidden="true"><span>l</span><i>✳</i></div>
-        <div className="lp-about__copy"><span className="lp-eyebrow">05 / sobre o ludus</span><h2>Jogar também é<br /><em>fazer parte.</em></h2><p>Todo mundo tem um jeito próprio de viver um jogo. O LUDUS nasce para reunir essas experiências: as histórias, as descobertas, as opiniões e as pessoas que fazem parte delas.</p><button className="lp-button lp-button--primary" onClick={() => openAuth("register")}>encontre seu espaço <span>↗</span></button></div>
+        <div className="lp-about__copy"><span className="lp-eyebrow">04 / sobre o ludus</span><h2>Jogar também é<br /><em>fazer parte.</em></h2><p>Todo mundo tem um jeito próprio de viver um jogo. O LUDUS nasce para reunir essas experiências: as histórias, as descobertas, as opiniões e as pessoas que fazem parte delas.</p><button className="lp-button lp-button--primary" onClick={() => openAuth("register")}>encontre seu espaço <span>↗</span></button></div>
       </section>
 
       <footer className="lp-footer" data-ui-id="LP-056">
