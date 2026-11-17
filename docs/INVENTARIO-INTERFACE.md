@@ -8,6 +8,7 @@ Este documento registra os elementos da interface para que cada parte possa ser 
 - Cada elemento recebe um código único e estável.
 - Seções, containers, componentes e elementos internos podem ter códigos próprios.
 - Um código não deve ser reutilizado depois que seu elemento for removido.
+- Códigos de elementos removidos permanecem aposentados e não são atribuídos novamente.
 - Ao renomear ou reorganizar um elemento, manter o código se ele continuar representando o mesmo elemento.
 - Novas telas terão prefixos próprios, definidos quando forem criadas.
 
@@ -32,9 +33,6 @@ Os elementos da interface serão identificados no código com o atributo `data-u
 | LP-021 | Landing Page | Avaliação de Hollow Knight | LP-020 | Card demonstrativo de avaliação | src/pages/LandingPage.jsx |
 | LP-022 | Landing Page | Avaliação de Celeste | LP-020 | Card demonstrativo de avaliação | src/pages/LandingPage.jsx |
 | LP-023 | Landing Page | Avaliação de Outer Wilds | LP-020 | Card demonstrativo de avaliação | src/pages/LandingPage.jsx |
-| LP-030 | Landing Page | Seção de resenhas em destaque | LP-001 | Apresentar duas resenhas de exemplo | src/pages/LandingPage.jsx |
-| LP-031 | Landing Page | Resenha de Disco Elysium | LP-030 | Card demonstrativo de resenha | src/pages/LandingPage.jsx |
-| LP-032 | Landing Page | Resenha de Journey | LP-030 | Card demonstrativo de resenha | src/pages/LandingPage.jsx |
 | LP-040 | Landing Page | Seção de listas | LP-001 | Apresentar três listas de exemplo | src/pages/LandingPage.jsx |
 | LP-041 | Landing Page | Lista “jogos para sentir” | LP-040 | Card demonstrativo de lista | src/pages/LandingPage.jsx |
 | LP-042 | Landing Page | Lista “mundos para perder a hora” | LP-040 | Card demonstrativo de lista | src/pages/LandingPage.jsx |
@@ -63,3 +61,4 @@ Os elementos da interface serão identificados no código com o atributo `data-u
 |---|---|
 | 2026-11-17 | Criado o padrão de identificação e o inventário inicial. |
 | 2026-11-17 | Primeira implementação visual da Landing Page e cadastro dos elementos LP-001 a LP-062. |
+| 2026-11-17 | Removida a seção independente de resenhas; os códigos LP-030 a LP-032 foram aposentados. Resenhas permanecem como texto opcional das avaliações. |
