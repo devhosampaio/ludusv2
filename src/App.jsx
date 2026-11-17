@@ -1,5 +1,7 @@
+import LandingPage from "./pages/LandingPage.jsx";
+
 function App() {
-  return <main />;
+  return <LandingPage />;
 }
 
 export default App;
