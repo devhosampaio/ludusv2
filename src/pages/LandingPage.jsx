@@ -37,25 +37,6 @@ const reviews = [
   },
 ];
 
-const featuredReviews = [
-  {
-    id: "LP-031",
-    game: "Disco Elysium",
-    author: "noct",
-    rating: "5,0",
-    date: "12 nov. 2026",
-    text: "Poucos jogos conseguem transformar uma conversa em uma aventura tão imprevisível. É estranho, engraçado, melancólico e profundamente humano.",
-  },
-  {
-    id: "LP-032",
-    game: "Journey",
-    author: "ana.ctrl",
-    rating: "4,7",
-    date: "10 nov. 2026",
-    text: "Uma experiência que não precisa explicar muito para dizer bastante. A beleza está nos pequenos encontros pelo caminho.",
-  },
-];
-
 const lists = [
   { id: "LP-041", title: "jogos para sentir", author: "ana.ctrl", count: "12 jogos", covers: ["J", "C", "A"], colors: ["list-cover--one", "list-cover--two", "list-cover--three"] },
   { id: "LP-042", title: "mundos para perder a hora", author: "lunar", count: "8 jogos", covers: ["H", "O", "S"], colors: ["list-cover--four", "list-cover--five", "list-cover--six"] },
@@ -150,7 +131,7 @@ function LandingPage() {
           </article>
           <div className="lp-floating-review" data-ui-id="LP-008">
             <span className="lp-floating-review__avatar">m.</span>
-            <div><strong>mari.exe</strong><span>uma nova resenha</span></div>
+            <div><strong>mari.exe</strong><span>uma nova avaliação</span></div>
             <span className="lp-floating-review__star">★ 5,0</span>
           </div>
           <div className="lp-visual-note lp-visual-note--bottom"><span>01 / 03</span> EXPERIÊNCIAS QUE FICAM</div>
@@ -177,28 +158,6 @@ function LandingPage() {
           ))}
         </div>
         <p className="lp-demo-caption">Conteúdo ilustrativo para apresentar a experiência do LUDUS.</p>
-      </section>
-
-      <section className="lp-section lp-container" id="resenhas" data-ui-id="LP-030">
-        <div className="lp-section-heading">
-          <div><span className="lp-eyebrow">02 / palavras que ficam</span><h2>resenhas em <em>destaque</em></h2></div>
-          <span className="lp-section-heading__aside">MAIS DO QUE UMA NOTA</span>
-        </div>
-        <div className="lp-featured-reviews">
-          {featuredReviews.map((review, index) => (
-            <article className="lp-essay-card" key={review.id} data-ui-id={review.id}>
-              <span className="lp-essay-card__number">0{index + 1}</span>
-              <div className="lp-essay-card__content">
-                <div className="lp-review-card__meta"><span>@{review.author}</span><span>{review.date}</span></div>
-                <h3>{review.game}</h3>
-                <p>“{review.text}”</p>
-                <div className="lp-essay-card__bottom"><Stars value={review.rating} /><span>resenha da comunidade</span></div>
-              </div>
-              <span className="lp-essay-card__ornament" aria-hidden="true">{index === 0 ? "✳" : "◌"}</span>
-            </article>
-          ))}
-        </div>
-        <p className="lp-demo-caption">Resenhas de demonstração · exemplos de apresentação.</p>
       </section>
 
       <section className="lp-section lp-container" id="listas" data-ui-id="LP-040">
