@@ -239,7 +239,7 @@ function LandingPage() {
         <div className="lp-container lp-footer__inner">
           <a className="lp-wordmark lp-wordmark--footer" href="#inicio"><span className="lp-wordmark__symbol" aria-hidden="true"><i /><i /><i /></span><span>ludus</span></a>
           <span className="lp-footer__copyright">UM ESPAÇO PARA QUEM JOGA · 2026</span>
-          <nav className="lp-footer__links" aria-label="Links do rodapé"><a href="#sobre">sobre</a><a href="#termos">termos de uso</a><a href="mailto:contato@ludus.com">contato</a><a href="https://instagram.com" target="_blank" rel="noreferrer">instagram</a><a href="https://github.com/devhosampaio/ludusv2" target="_blank" rel="noreferrer">github</a></nav>
+          <nav className="lp-footer__links" aria-label="Links do rodapé"><a href="#sobre">sobre</a><span>termos de uso</span><span>contato</span><span>instagram</span><a href="https://github.com/devhosampaio/ludusv2" target="_blank" rel="noreferrer">github</a></nav>
         </div>
       </footer>
       {authMode && <AuthModal mode={authMode} onClose={closeAuth} onSwitch={() => setAuthMode(authMode === "register" ? "login" : "register")} />}
