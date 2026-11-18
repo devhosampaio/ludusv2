@@ -12,7 +12,7 @@ const community = [
  { id:"LP-043", type:"profile", name:"noah.jpg", note:"joga devagar, sente tudo", count:"21 avaliações", avatar:"n", tone:"green" }
 ];
 function Avatar({initials,tone=""}) { return <span className={`lp-avatar ${tone}`} aria-hidden="true">{initials}</span>; }
-function Wordmark() { return <a className="lp-wordmark" href="#inicio" aria-label="LUDUS — início"><span className="lp-mark" aria-hidden="true">l.</span><span>LUDUS</span></a>; }
+function Wordmark() { return <a className="lp-wordmark" data-ui-id="LP-005" href="#inicio" aria-label="LUDUS — início"><span className="lp-mark" aria-hidden="true">l.</span><span>LUDUS</span></a>; }
 function Header() {
  const [visible,setVisible]=useState(true);
  useEffect(()=>{ let previous=window.scrollY; const onScroll=()=>{const current=window.scrollY;if(current<24||current<previous-4)setVisible(true);else if(current>previous+4)setVisible(false);previous=current;};window.addEventListener("scroll",onScroll,{passive:true});return()=>window.removeEventListener("scroll",onScroll);},[]);
