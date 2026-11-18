@@ -2,208 +2,29 @@ import { useEffect, useState } from "react";
 import "./LandingPage.css";
 
 const reviews = [
-  {
-    id: "LP-021",
-    game: "Hollow Knight",
-    category: "AÇÃO · AVENTURA",
-    author: "lunar",
-    date: "há 2 horas",
-    rating: "4,5",
-    text: "Um mundo que parece silencioso, mas está cheio de histórias. Daqueles jogos que continuam com você mesmo depois dos créditos.",
-    cover: "cover--hollow",
-    mark: "HK",
-  },
-  {
-    id: "LP-022",
-    game: "Celeste",
-    category: "PLATAFORMA",
-    author: "mari.exe",
-    date: "há 5 horas",
-    rating: "5,0",
-    text: "Uma experiência delicada e intensa. Cada fase parece conversar com aquilo que o jogo quer dizer.",
-    cover: "cover--celeste",
-    mark: "C",
-  },
-  {
-    id: "LP-023",
-    game: "Outer Wilds",
-    category: "EXPLORAÇÃO",
-    author: "pixelpoet",
-    date: "ontem",
-    rating: "4,8",
-    text: "A curiosidade é a melhor ferramenta que esse jogo poderia oferecer. Queria poder descobrir tudo de novo.",
-    cover: "cover--outer",
-    mark: "OW",
-  },
+ { id:"LP-021", author:"lunar", initials:"lu", game:"Hollow Knight", detail:"Hallownest ainda vive em mim.", text:"Há jogos que terminam quando os créditos aparecem. Hollow Knight não é um deles. Fica a sensação de ter conhecido um lugar real, com histórias que ninguém precisou explicar por inteiro.", rating:"★★★★★", time:"há 18 min", tone:"hollow" },
+ { id:"LP-022", author:"mari.exe", initials:"m", game:"Celeste", detail:"um passo de cada vez", text:"Uma experiência sobre continuar tentando, mesmo quando parece impossível.", rating:"★★★★★", time:"há 42 min", tone:"celeste" },
+ { id:"LP-023", author:"pixelpoet", initials:"pp", game:"Outer Wilds", detail:"queria descobrir tudo de novo", text:"A curiosidade é a melhor ferramenta que esse jogo poderia oferecer.", rating:"★★★★★", time:"há 1 h", tone:"outer" }
 ];
-
-const lists = [
-  { id: "LP-041", title: "jogos para sentir", author: "ana.ctrl", count: "12 jogos", covers: ["J", "C", "A"], colors: ["list-cover--one", "list-cover--two", "list-cover--three"] },
-  { id: "LP-042", title: "mundos para perder a hora", author: "lunar", count: "8 jogos", covers: ["H", "O", "S"], colors: ["list-cover--four", "list-cover--five", "list-cover--six"] },
-  { id: "LP-043", title: "pequenas obras-primas", author: "pixelpoet", count: "15 jogos", covers: ["P", "I", "D"], colors: ["list-cover--seven", "list-cover--eight", "list-cover--nine"] },
+const community = [
+ { id:"LP-041", type:"profile", name:"ana.ctrl", note:"entre mundos e palavras", count:"38 avaliações", avatar:"a", tone:"lavender" },
+ { id:"LP-042", type:"list", name:"jogos para dias chuvosos", note:"uma coleção de mundos para ficar mais um pouco", count:"12 jogos", tone:"rust" },
+ { id:"LP-043", type:"profile", name:"noah.jpg", note:"joga devagar, sente tudo", count:"21 avaliações", avatar:"n", tone:"green" }
 ];
-
-const features = [
-  { id: "LP-051", symbol: "✳", title: "avalie", text: "Registre o que você jogou e dê sua nota." },
-  { id: "LP-052", symbol: "▤", title: "escreva", text: "Transforme suas impressões em resenhas." },
-  { id: "LP-053", symbol: "♡", title: "conecte-se", text: "Encontre pessoas que também vivem jogos." },
-  { id: "LP-054", symbol: "▦", title: "organize", text: "Monte listas e reúna seus favoritos." },
-];
-
-function Stars({ value }) {
-  return <span className="lp-stars" aria-label={`Nota ${value} de 5`}>★★★★★ <small>{value}</small></span>;
+function Avatar({initials,tone=""}) { return <span className={`lp-avatar ${tone}`} aria-hidden="true">{initials}</span>; }
+function Wordmark() { return <a className="lp-wordmark" href="#inicio" aria-label="LUDUS — início"><span className="lp-mark" aria-hidden="true">l.</span><span>LUDUS</span></a>; }
+function Header() {
+ const [visible,setVisible]=useState(true);
+ useEffect(()=>{ let previous=window.scrollY; const onScroll=()=>{const current=window.scrollY;if(current<24||current<previous-4)setVisible(true);else if(current>previous+4)setVisible(false);previous=current;};window.addEventListener("scroll",onScroll,{passive:true});return()=>window.removeEventListener("scroll",onScroll);},[]);
+ return <header className={`lp-header ${visible?"is-visible":"is-hidden"}`} data-ui-id="LP-009"><div className="lp-header__inner"><Wordmark/><nav className="lp-header__actions" aria-label="Acesso à plataforma"><a className="lp-login-link" href="#entrar">Entrar</a><a className="lp-button lp-button--small" href="#criar-conta">Criar conta <span aria-hidden="true">↗</span></a></nav></div></header>;
 }
-
-function AuthModal({ mode, onClose, onSwitch }) {
-  const isRegister = mode === "register";
-
-  useEffect(() => {
-    function onKeyDown(event) {
-      if (event.key === "Escape") onClose();
-    }
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [onClose]);
-
-  return (
-    <div className="lp-modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()} data-ui-id="LP-061">
-      <section className="lp-modal" role="dialog" aria-modal="true" aria-labelledby="lp-modal-title" data-ui-id="LP-062">
-        <button className="lp-modal__close" type="button" onClick={onClose} aria-label="Fechar">×</button>
-        <span className="lp-eyebrow">ludus / sua próxima página começa aqui</span>
-        <h2 id="lp-modal-title">{isRegister ? "chegue mais perto." : "bom ter você de volta."}</h2>
-        <p>{isRegister ? "Crie seu espaço para registrar tudo o que os jogos despertam." : "Entre para continuar sua jornada pelo LUDUS."}</p>
-        <form className="lp-auth-form" onSubmit={(event) => event.preventDefault()}>
-          {isRegister && <label>Nome de usuário<input type="text" name="username" placeholder="como quer ser chamado?" autoComplete="username" /></label>}
-          <label>E-mail<input type="email" name="email" placeholder="voce@email.com" autoComplete="email" /></label>
-          <label>Senha<input type="password" name="password" placeholder="sua senha" autoComplete={isRegister ? "new-password" : "current-password"} /></label>
-          <button className="lp-button lp-button--primary" type="submit">{isRegister ? "criar conta" : "entrar"} <span>↗</span></button>
-        </form>
-        <div className="lp-modal__switch">
-          {isRegister ? "Já tem uma conta?" : "Ainda não faz parte?"}
-          <button type="button" onClick={onSwitch}>{isRegister ? "Entrar" : "Criar conta"}</button>
-        </div>
-        <small className="lp-modal__note">Prévia da interface · autenticação ainda não conectada</small>
-      </section>
-    </div>
-  );
-}
-
-function LandingPage() {
-  const [authMode, setAuthMode] = useState(null);
-
-  const openAuth = (mode) => setAuthMode(mode);
-  const closeAuth = () => setAuthMode(null);
-
-  return (
-    <main className="landing-page" data-ui-id="LP-001">
-      <div className="lp-grain" aria-hidden="true" data-ui-id="LP-002" />
-      <section className="lp-hero lp-container" id="inicio" data-ui-id="LP-003">
-        <div className="lp-hero__copy" data-ui-id="LP-004">
-          <a className="lp-wordmark" href="#inicio" aria-label="ludus — início" data-ui-id="LP-005">
-            <span className="lp-wordmark__symbol" aria-hidden="true"><i /><i /><i /></span>
-            <span>ludus</span>
-          </a>
-          <span className="lp-eyebrow lp-hero__eyebrow">um lugar para quem joga</span>
-          <h1>Todo jogo deixa<br />uma <em>história.</em></h1>
-          <p className="lp-hero__description">Um espaço para guardar suas experiências, descobrir novos mundos e encontrar quem sente os jogos como você.</p>
-          <div className="lp-hero__actions">
-            <button className="lp-button lp-button--primary" onClick={() => openAuth("register")}>fazer parte da comunidade <span>↗</span></button>
-            <button className="lp-button lp-button--text" onClick={() => openAuth("login")}>entrar</button>
-          </div>
-          <span className="lp-hero__aside">jogue · registre · compartilhe</span>
-        </div>
-
-        <div className="lp-hero__visual" aria-label="Prévia ilustrativa de avaliações do LUDUS" data-ui-id="LP-006">
-          <div className="lp-visual-note lp-visual-note--top">SEU OLHAR SOBRE CADA JOGO <span>✳</span></div>
-          <article className="lp-featured-card" data-ui-id="LP-007">
-            <div className="lp-featured-card__art cover--outer">
-              <span className="art-orbit art-orbit--one" />
-              <span className="art-orbit art-orbit--two" />
-              <span className="art-sun" />
-              <span className="lp-featured-card__art-title">OUTER<br />WILDS</span>
-              <span className="lp-featured-card__art-caption">THE UNIVERSE IS WAITING</span>
-            </div>
-            <div className="lp-featured-card__body">
-              <div><span className="lp-card-kicker">AVALIAÇÃO EM DESTAQUE</span><h3>Outer Wilds</h3><span className="lp-muted">por pixelpoet</span></div>
-              <Stars value="4,8" />
-            </div>
-            <p className="lp-featured-card__quote">“Queria poder descobrir tudo de novo.”</p>
-          </article>
-          <div className="lp-floating-review" data-ui-id="LP-008">
-            <span className="lp-floating-review__avatar">m.</span>
-            <div><strong>mari.exe</strong><span>uma nova avaliação</span></div>
-            <span className="lp-floating-review__star">★ 5,0</span>
-          </div>
-          <div className="lp-visual-note lp-visual-note--bottom"><span>01 / 03</span> EXPERIÊNCIAS QUE FICAM</div>
-          <span className="lp-hero__asterisk" aria-hidden="true">✳</span>
-        </div>
-      </section>
-
-      <section className="lp-section lp-container" id="avaliacoes" data-ui-id="LP-020">
-        <div className="lp-section-heading" data-ui-id="LP-020A">
-          <div><span className="lp-eyebrow">01 / o que a comunidade joga</span><h2>últimas <em>avaliações</em></h2></div>
-          <span className="lp-section-heading__aside">TRÊS OLHARES, TRÊS EXPERIÊNCIAS</span>
-        </div>
-        <div className="lp-review-grid">
-          {reviews.map((review) => (
-            <article className="lp-review-card" key={review.id} data-ui-id={review.id}>
-              <div className={`lp-game-art ${review.cover}`} aria-label={`Arte tipográfica ilustrativa de ${review.game}`}>
-                <span className="lp-game-art__mark">{review.mark}</span><span className="lp-game-art__name">{review.game}</span><span className="lp-game-art__category">{review.category}</span>
-              </div>
-              <div className="lp-review-card__meta"><span>@{review.author}</span><span>{review.date}</span></div>
-              <div className="lp-review-card__title"><h3>{review.game}</h3><Stars value={review.rating} /></div>
-              <p>{review.text}</p>
-              <div className="lp-review-card__footer"><span>♡ 24</span><span>○ 8 comentários</span><span>↗</span></div>
-            </article>
-          ))}
-        </div>
-        <p className="lp-demo-caption">Conteúdo ilustrativo para apresentar a experiência do LUDUS.</p>
-      </section>
-
-      <section className="lp-section lp-container" id="listas" data-ui-id="LP-040">
-        <div className="lp-section-heading">
-          <div><span className="lp-eyebrow">02 / coleções pessoais</span><h2>jogos em <em>conjunto</em></h2></div>
-          <span className="lp-section-heading__aside">LISTAS FEITAS POR JOGADORES</span>
-        </div>
-        <div className="lp-list-grid">
-          {lists.map((list) => (
-            <article className="lp-list-card" key={list.id} data-ui-id={list.id}>
-              <div className="lp-list-card__covers">
-                {list.covers.map((cover, index) => <div className={`lp-list-cover ${list.colors[index]}`} key={cover}><span>{cover}</span></div>)}
-              </div>
-              <div className="lp-list-card__info"><div><h3>{list.title}</h3><span>por @{list.author}</span></div><span>{list.count}</span></div>
-            </article>
-          ))}
-        </div>
-        <p className="lp-demo-caption">Capas e listas ilustrativas.</p>
-      </section>
-
-      <section className="lp-section lp-features-section" id="funcionalidades" data-ui-id="LP-050">
-        <div className="lp-container">
-          <div className="lp-section-heading">
-            <div><span className="lp-eyebrow">03 / seu espaço de jogo</span><h2>mais maneiras de <em>viver jogos</em></h2></div>
-          </div>
-          <div className="lp-feature-grid">
-            {features.map((feature) => <article className="lp-feature" key={feature.id} data-ui-id={feature.id}><span className="lp-feature__symbol">{feature.symbol}</span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="lp-about lp-container" id="sobre" data-ui-id="LP-055">
-        <div className="lp-about__symbol" aria-hidden="true"><span>l</span><i>✳</i></div>
-        <div className="lp-about__copy"><span className="lp-eyebrow">04 / sobre o ludus</span><h2>Jogar também é<br /><em>fazer parte.</em></h2><p>Todo mundo tem um jeito próprio de viver um jogo. O LUDUS nasce para reunir essas experiências: as histórias, as descobertas, as opiniões e as pessoas que fazem parte delas.</p><button className="lp-button lp-button--primary" onClick={() => openAuth("register")}>encontre seu espaço <span>↗</span></button></div>
-      </section>
-
-      <footer className="lp-footer" data-ui-id="LP-056">
-        <div className="lp-container lp-footer__inner">
-          <a className="lp-wordmark lp-wordmark--footer" href="#inicio"><span className="lp-wordmark__symbol" aria-hidden="true"><i /><i /><i /></span><span>ludus</span></a>
-          <span className="lp-footer__copyright">UM ESPAÇO PARA QUEM JOGA · 2026</span>
-          <nav className="lp-footer__links" aria-label="Links do rodapé"><a href="#sobre">sobre</a><span>termos de uso</span><span>contato</span><span>instagram</span><a href="https://github.com/devhosampaio/ludusv2" target="_blank" rel="noreferrer">github</a></nav>
-        </div>
-      </footer>
-      {authMode && <AuthModal mode={authMode} onClose={closeAuth} onSwitch={() => setAuthMode(authMode === "register" ? "login" : "register")} />}
-    </main>
-  );
-}
-
+function GameArtwork({game,tone,label}) { return <div className={`lp-art lp-art--${tone}`} role="img" aria-label={`Arte gráfica ilustrativa de ${game}`}><span className="lp-art__orbit lp-art__orbit--one"/><span className="lp-art__orbit lp-art__orbit--two"/><span className="lp-art__spark">✳</span><span className="lp-art__title">{label}</span><span className="lp-art__caption">A GAME · A FEELING · A MEMORY</span></div>; }
+function ReviewCard({review,featured=false}) { return <article className={`lp-review ${featured?"lp-review--featured":"lp-review--compact"}`} data-ui-id={review.id}>{featured&&<GameArtwork game={review.game} tone={review.tone} label={"HOLLOW\nKNIGHT"}/>}<div className="lp-review__content"><div className="lp-review__author"><Avatar initials={review.initials}/><div><strong>@{review.author}</strong><span>{review.time}</span></div><span className="lp-review__rating" aria-label="5 de 5">{review.rating}</span></div><div className="lp-review__game">{review.game}<span> · {review.detail}</span></div><p>{review.text}</p><div className="lp-review__actions"><span>♡ <small>curtir</small></span><span>◯ <small>comentar</small></span><span>↗ <small>compartilhar</small></span></div></div></article>; }
+function CommunityTile({item}) { return <article className={`lp-community-tile lp-community-tile--${item.tone}`} data-ui-id={item.id}>{item.type==="profile"?<><span className="lp-community-tile__eyebrow">PESSOA DA COMUNIDADE</span><Avatar initials={item.avatar} tone={item.tone}/><h3>@{item.name}</h3><p>{item.note}</p><span className="lp-community-tile__meta">{item.count}</span></>:<><span className="lp-community-tile__eyebrow">LISTA DA COMUNIDADE</span><div className="lp-mini-covers"><i>H</i><i>C</i><i>O</i><i>+</i></div><h3>{item.name}</h3><p>{item.note}</p><span className="lp-community-tile__meta">{item.count}</span></>}</article>; }
+function LandingPage() { return <main className="landing-page" data-ui-id="LP-001"><Header/>
+ <section className="lp-hero lp-container" id="inicio" data-ui-id="LP-003"><div className="lp-hero__copy" data-ui-id="LP-004"><span className="lp-eyebrow"><i/> UM LUGAR PARA QUEM JOGA</span><h1>Os jogos passam.<br/>O que eles <em>deixam,</em><br/>fica com você.</h1><p>Um espaço para registrar suas experiências, descobrir novos mundos e encontrar pessoas que também enxergam nos jogos muito mais do que uma partida.</p><div className="lp-hero__actions"><a className="lp-button" href="#criar-conta">Criar minha conta <span aria-hidden="true">↗</span></a><a className="lp-text-link" href="#entrar">Já tenho uma conta <span aria-hidden="true">→</span></a></div><span className="lp-hero__footnote">JOGUE COM ATENÇÃO. GUARDE O QUE IMPORTA.</span></div>
+ <div className="lp-hero__preview" data-ui-id="LP-006" aria-label="Prévia ilustrativa do feed do LUDUS"><div className="lp-preview-top"><span>ludus / feed</span><span>● ● ●</span></div><div className="lp-preview-label">UMA COMUNIDADE EM MOVIMENTO</div><div className="lp-preview-main"><div className="lp-preview-cover"><GameArtwork game="Outer Wilds" tone="outer" label={"OUTER\nWILDS"}/></div><div className="lp-preview-info"><span className="lp-preview-kicker">AVALIAÇÃO RECENTE</span><h2>Outer Wilds</h2><div className="lp-preview-by"><Avatar initials="pp"/><span>@pixelpoet</span></div><span className="lp-preview-stars">★★★★★ <small>5.0</small></span><p>“A vontade de descobrir é maior que o medo do desconhecido.”</p><div className="lp-preview-stats"><span>♡ 28</span><span>◯ 6</span><span>↗</span></div></div></div><div className="lp-preview-bottom"><span>01 — 03</span><span>HISTÓRIAS QUE FICAM</span></div><span className="lp-preview-sticker">✳</span></div></section>
+ <section className="lp-social lp-container" id="comunidade" data-ui-id="LP-020"><div className="lp-section-heading"><div><span className="lp-eyebrow">01 / FEITO DE EXPERIÊNCIAS</span><h2>Cada pessoa joga.<br/><em>Cada pessoa sente.</em></h2></div><p>Um recorte do que a comunidade está vivendo, descobrindo e compartilhando.</p></div><div className="lp-social-grid"><div className="lp-social-grid__main"><ReviewCard review={reviews[0]} featured/></div><div className="lp-social-grid__side"><ReviewCard review={reviews[1]}/><ReviewCard review={reviews[2]}/></div></div><div className="lp-community-heading"><span className="lp-eyebrow">02 / GENTE, GOSTOS E DESCOBERTAS</span><span>UM POUCO DE CADA UM</span></div><div className="lp-community-grid">{community.map(item=><CommunityTile key={item.id} item={item}/>)}<div className="lp-community-quote" data-ui-id="LP-044"><span>“</span><p>Não é só sobre o que você joga. É sobre o que fica depois.</p><small>— A IDEIA POR TRÁS DO LUDUS</small></div></div></section>
+ <section className="lp-closing" id="criar-conta" data-ui-id="LP-055"><div className="lp-closing__inner lp-container"><span className="lp-closing__ornament" aria-hidden="true">✳</span><span className="lp-eyebrow">SEU PRÓXIMO CAPÍTULO COMEÇA AQUI</span><h2>O que você viveu<br/>merece <em>ser lembrado.</em></h2><p>Reúna suas histórias, encontre novas perspectivas e faça parte de uma comunidade que ama jogos tanto quanto você.</p><a className="lp-button lp-button--light" href="#entrar">Fazer parte do LUDUS <span aria-hidden="true">↗</span></a><span className="lp-closing__note">UM ESPAÇO PARA QUEM JOGA.</span></div></section>
+ <footer className="lp-footer" data-ui-id="LP-056"><div className="lp-container lp-footer__inner"><Wordmark/><span>JOGUE · REGISTRE · COMPARTILHE</span><a href="https://github.com/devhosampaio/ludusv2" target="_blank" rel="noreferrer">GITHUB ↗</a><small>© 2026 LUDUS</small></div></footer><span className="lp-anchor" id="entrar" aria-hidden="true"/></main>; }
 export default LandingPage;
