@@ -1,26 +1,43 @@
-:root {
-  font-family: "Space Grotesk", "Inter", sans-serif;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--ludus-bg);
+  color: var(--ludus-text);
+  font-family: var(--ludus-font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #f5f5f5;
-  background: #292929;
 }
 
-* {
-  box-sizing: border-box;
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-html,
-body,
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
 #root {
-  min-width: 320px;
-  min-height: 100%;
-  margin: 0;
-}
-
-body {
   min-height: 100vh;
-  background-color: #292929;
 }
