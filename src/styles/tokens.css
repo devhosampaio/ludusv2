@@ -1,0 +1,26 @@
+:root {
+  color-scheme: dark;
+
+  /* LUDUS — identidade visual */
+  --ludus-bg: #302c3d;
+  --ludus-surface: #e8dfce;
+  --ludus-text: #f5f0e6;
+  --ludus-primary: #7060ab;
+  --ludus-secondary: #d96c55;
+  --ludus-rating: #d5a64a;
+  --ludus-positive: #668c78;
+  --ludus-border: #c9bfb0;
+
+  /* Integração com os tokens do Bootstrap */
+  --bs-body-bg: var(--ludus-bg);
+  --bs-body-color: var(--ludus-text);
+  --bs-primary: var(--ludus-primary);
+  --bs-secondary: var(--ludus-secondary);
+  --bs-border-color: var(--ludus-border);
+  --bs-link-color: var(--ludus-text);
+  --bs-link-hover-color: #ffffff;
+
+  --ludus-font-sans: "DM Sans", Inter, system-ui, sans-serif;
+  --ludus-font-mono: "DM Mono", ui-monospace, monospace;
+  --ludus-font-display: "Playfair Display", Georgia, serif;
+}
